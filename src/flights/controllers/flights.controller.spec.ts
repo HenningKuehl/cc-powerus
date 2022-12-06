@@ -26,11 +26,37 @@ describe('FlightsController', () => {
   });
 
   describe('GET - /flights', () => {
-    it('should return 500, if there is an unexpected error');
+    it('should return 500, if there is an unexpected error', async () => {
+      expect.assertions(1);
 
-    it('should return 404, if there are not flights found');
+      jest.spyOn(service, 'getAllFlights').mockImplementation(async () => {
+        throw new Error('test error');
+      });
+
+      expect(await controller.getAll()).toStrictEqual({
+        success: false,
+        data: null,
+        message: 'Internal server error',
+        statusCode: 500,
+      });
+    });
+
+    it('should return 404, if there are not flights found', async () => {
+      expect.assertions(1);
+
+      jest.spyOn(service, 'getAllFlights').mockImplementation(async () => []);
+
+      expect(await controller.getAll()).toStrictEqual({
+        success: false,
+        data: [],
+        message: 'No flights found',
+        statusCode: 404,
+      });
+    });
 
     it('should return 200 and a list of flights', async () => {
+      expect.assertions(1);
+
       const flights: Flight[] = [];
       jest
         .spyOn(service, 'getAllFlights')
