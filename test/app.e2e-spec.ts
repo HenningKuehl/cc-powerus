@@ -21,4 +21,12 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('Hello World!');
   });
+
+  describe('GET - /flights', () => {
+    it('should return 404 and an empty array');
+
+    it('should return 500');
+
+    it('should return 200 and a list of unique flights');
+  })
 });

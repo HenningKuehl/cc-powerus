@@ -9,7 +9,7 @@ const SOURCE_IDS = ['source1', 'source2'];
 export class FlightsService {
   constructor(private readonly flightsRepo: FlightsRepository) {}
 
-  async getAllFlights(): Promise<IFlight[]> {
+  async getAllFlights(): Promise<Flight[]> {
     // TODO: think about using forkJoin instead of promise.all
     // fetch all flight sources
     const sources = await Promise.all(

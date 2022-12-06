@@ -6,7 +6,7 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 
 const server = express();
 
-export const createNestServer = async (expressInstance) => {
+const createNestServer = async (expressInstance) => {
   const app = await NestFactory.create(
     AppModule,
     new ExpressAdapter(expressInstance),
