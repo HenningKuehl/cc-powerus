@@ -16,7 +16,7 @@ export class FlightsRepository {
       const resp = await firstValueFrom(
         this.http
           .get<FlightResponse>(`${SERVER_BASE_URL}/${sourceId}`, {
-            // timeout: 500,
+            timeout: 3000,
           })
           .pipe(
             catchError((e) => {
