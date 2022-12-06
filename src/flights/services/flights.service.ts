@@ -1,33 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { FlightsRepository } from '../repositories/flights.repository';
-import { Flight } from '../interfaces/flight.interface';
-import { FlightSlice } from '../interfaces/flight-slice.interface';
+import { IFlight } from '../interfaces/flight.interface';
+import { Flight } from '../models/flight';
+
+const SOURCE_IDS = ['source1', 'source2'];
 
 @Injectable()
 export class FlightsService {
   constructor(private readonly flightsRepo: FlightsRepository) {}
 
-  async getAllFlights(): Promise<Flight[]> {
-    const sources = await Promise.all([
-      this.flightsRepo.getFlightsBySource('source1'),
-      this.flightsRepo.getFlightsBySource('source2'),
-    ]);
+  async getAllFlights(): Promise<IFlight[]> {
+    // TODO: think about using forkJoin instead of promise.all
+    // fetch all flight sources
+    const sources = await Promise.all(
+      SOURCE_IDS.map((id) => this.flightsRepo.getFlightsBySource(id)),
+    );
 
-    const flights: Flight[] = sources.flat();
+    // merge sources and convert to flight class
+    const flights: Flight[] = sources.flat().map((f) => new Flight(f));
 
-    const flightMap = new Map<string, Flight>();
-    flights.forEach((flight) => {
-      const id: Pick<
-        FlightSlice,
-        'flight_number' | 'departure_date_time_utc' | 'arrival_date_time_utc'
-      >[] = flight.slices.map((s) => ({
-        flight_number: s.flight_number,
-        departure_date_time_utc: s.departure_date_time_utc,
-        arrival_date_time_utc: s.arrival_date_time_utc,
-      }));
-      flightMap.set(JSON.stringify(id), flight);
-    });
+    // remove duplicates by storing flights in a map
+    const flightMap = new Map<string, Flight>(flights.map((f) => [f.key, f]));
 
+    // return map as an array
     return Array.from(flightMap.values());
   }
 }

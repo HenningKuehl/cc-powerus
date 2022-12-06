@@ -1,6 +1,6 @@
-import { FlightSlice } from './flight-slice.interface';
+import { IFlightSlice } from './flight-slice.interface';
 
-export interface Flight {
-  slices: FlightSlice[];
+export interface IFlight {
+  slices: IFlightSlice[];
   price: number;
 }

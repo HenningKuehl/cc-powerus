@@ -1,4 +1,4 @@
-export interface FlightSlice {
+export interface IFlightSlice {
   origin_name: string;
   destination_name: string;
 

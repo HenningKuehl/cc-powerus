@@ -1,5 +1,5 @@
-import { Flight } from './flight.interface';
+import { IFlight } from './flight.interface';
 
 export interface FlightResponse {
-  flights: Flight[];
+  flights: IFlight[];
 }
