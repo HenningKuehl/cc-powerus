@@ -1,4 +1,4 @@
-import { FlightSlice } from "./flight-slice.interface";
+import { FlightSlice } from './flight-slice.interface';
 
 export interface Flight {
   slices: FlightSlice[];
