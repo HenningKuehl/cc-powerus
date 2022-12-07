@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpStatus, NotFoundException } from "@nestjs/common";
 import { FlightsService } from '../services/flights.service';
 import { ApiResponse } from '../../shared/interfaces/api-response.interface';
 import { IFlight } from '../interfaces/flight.interface';
@@ -9,8 +9,11 @@ export class FlightsController {
 
   @Get()
   async getAll(): Promise<ApiResponse<IFlight[] | null>> {
-    try {
-      const flights = await this.flightsService.getAllFlights();
+
+    const flights = await this.flightsService.getAllFlights();
+
+    if (flights.length) {
+
       // TODO: use interceptor for this
       return {
         success: true,
@@ -18,15 +21,14 @@ export class FlightsController {
         data: flights,
         message: 'Ok',
       };
-    } catch (e) {
-      // TODO: use interceptor for this
-      console.error('Error while getting all flights', e);
-      return {
-        data: null,
-        message: 'Internal server error',
-        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-        success: false,
-      };
     }
+
+    throw new NotFoundException({
+      success: false,
+      statusCode: HttpStatus.NOT_FOUND,
+      data: [],
+      message: 'No flights found'
+    });
+
   }
 }
