@@ -13,9 +13,9 @@ import {
   MOCK_FLIGHTS_SOURCE1,
   MOCK_FLIGHTS_UNIQUE,
 } from '../mocks/flights.mock';
-import { FirebaseLogger } from "../../src/shared/logger/firebase.logger";
-import { ApiResponseInterceptor } from "../../src/shared/interceptors/api-response.interceptor";
-import { HttpExceptionFilter } from "../../src/shared/filters/http-exception.filter";
+import { FirebaseLogger } from '../../src/shared/logger/firebase.logger';
+import { ApiResponseInterceptor } from '../../src/shared/interceptors/api-response.interceptor';
+import { HttpExceptionFilter } from '../../src/shared/filters/http-exception.filter';
 
 describe('FlightsController (e2e)', () => {
   let app: INestApplication;

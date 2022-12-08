@@ -4,8 +4,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { FirebaseLogger } from './shared/logger/firebase.logger';
-import { ApiResponseInterceptor } from "./shared/interceptors/api-response.interceptor";
-import { HttpExceptionFilter } from "./shared/filters/http-exception.filter";
+import { ApiResponseInterceptor } from './shared/interceptors/api-response.interceptor';
+import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
 
 const server = express();
 const firebaseLogger = new FirebaseLogger();
