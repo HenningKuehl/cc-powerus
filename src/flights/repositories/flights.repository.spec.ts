@@ -6,7 +6,7 @@ import { IFlight } from '../interfaces/flight.interface';
 import { Cache } from 'cache-manager';
 import { of, throwError } from 'rxjs';
 import { AxiosResponse } from 'axios';
-import { LoggerModule } from "../../shared/logger/logger.module";
+import { LoggerModule } from '../../shared/logger/logger.module';
 
 const MOCK_FLIGHTS: IFlight[] = [
   {

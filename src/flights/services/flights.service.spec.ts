@@ -9,7 +9,7 @@ import {
   MOCK_FLIGHTS_SOURCE2,
   MOCK_FLIGHTS_UNIQUE,
 } from '../../../test/mocks/flights.mock';
-import { LoggerModule } from "../../shared/logger/logger.module";
+import { LoggerModule } from '../../shared/logger/logger.module';
 
 describe('FlightsService', () => {
   let service: FlightsService;

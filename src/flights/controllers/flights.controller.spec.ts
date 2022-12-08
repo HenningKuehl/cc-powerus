@@ -5,7 +5,7 @@ import { FlightsRepository } from '../repositories/flights.repository';
 import { HttpModule } from '@nestjs/axios';
 import { CacheModule, NotFoundException } from '@nestjs/common';
 import { Flight } from '../models/flight';
-import { LoggerModule } from "../../shared/logger/logger.module";
+import { LoggerModule } from '../../shared/logger/logger.module';
 
 describe('FlightsController', () => {
   let controller: FlightsController;
