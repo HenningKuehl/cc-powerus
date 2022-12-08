@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { FlightsRepository } from '../repositories/flights.repository';
-import { IFlight } from '../interfaces/flight.interface';
 import { Flight } from '../models/flight';
 
 const SOURCE_IDS = ['source1', 'source2'];

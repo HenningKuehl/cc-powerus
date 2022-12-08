@@ -4,6 +4,7 @@ import { IFlight } from '../interfaces/flight.interface';
 import { FlightResponse } from '../interfaces/flight-response.interface';
 import { catchError, firstValueFrom, map, of, retry, tap } from 'rxjs';
 import { Cache } from 'cache-manager';
+import { FirebaseLogger } from '../../shared/logger/firebase.logger';
 
 const SERVER_BASE_URL = 'https://coding-challenge.powerus.de/flight';
 
@@ -12,13 +13,14 @@ export class FlightsRepository {
   constructor(
     private readonly http: HttpService,
     @Inject(CACHE_MANAGER) private readonly cache: Cache,
+    private readonly logger: FirebaseLogger,
   ) {}
 
   async getFlightsBySource(sourceId: string): Promise<IFlight[]> {
     const cacheKey = `flights_${sourceId}`;
     const cachedFlights = await this.cache.get<IFlight[]>(cacheKey);
     if (cachedFlights) {
-      console.log('return cached flights');
+      this.logger.log(`return cached flights for source: ${sourceId}`);
       return cachedFlights;
     }
 
@@ -34,8 +36,10 @@ export class FlightsRepository {
             this.cache.set(cacheKey, flights, 60 * 60 * 1000);
           }),
           catchError((e) => {
-            // TODO: think about adding firebase functions logger
-            console.error('Error while fetching flights from source1', e);
+            this.logger.error(
+              `Error while fetching flights from source: ${sourceId}`,
+              e,
+            );
             return of([]);
           }),
           retry(3),
