@@ -3,6 +3,7 @@ import * as functions from 'firebase-functions';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
+import { FirebaseLogger } from "./shared/logger/firebase.logger";
 
 const server = express();
 
@@ -10,7 +11,12 @@ const createNestServer = async (expressInstance) => {
   const app = await NestFactory.create(
     AppModule,
     new ExpressAdapter(expressInstance),
+    {
+      bufferLogs: true
+    }
   );
+
+  app.useLogger(new FirebaseLogger());
 
   return app.init();
 };
