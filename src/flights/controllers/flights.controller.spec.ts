@@ -57,12 +57,7 @@ describe('FlightsController', () => {
         .spyOn(service, 'getAllFlights')
         .mockImplementation(async () => flights);
 
-      expect(await controller.getAll()).toStrictEqual({
-        success: true,
-        data: flights,
-        message: 'Ok',
-        statusCode: 200,
-      });
+      expect(await controller.getAll()).toStrictEqual(flights);
     });
   });
 });

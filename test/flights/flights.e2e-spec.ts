@@ -13,6 +13,9 @@ import {
   MOCK_FLIGHTS_SOURCE1,
   MOCK_FLIGHTS_UNIQUE,
 } from '../mocks/flights.mock';
+import { FirebaseLogger } from "../../src/shared/logger/firebase.logger";
+import { ApiResponseInterceptor } from "../../src/shared/interceptors/api-response.interceptor";
+import { HttpExceptionFilter } from "../../src/shared/filters/http-exception.filter";
 
 describe('FlightsController (e2e)', () => {
   let app: INestApplication;
@@ -29,6 +32,11 @@ describe('FlightsController (e2e)', () => {
 
     httpService = moduleFixture.get<HttpService>(HttpService);
     app = moduleFixture.createNestApplication();
+
+    app.useLogger(new FirebaseLogger());
+    app.useGlobalInterceptors(new ApiResponseInterceptor());
+    app.useGlobalFilters(new HttpExceptionFilter());
+
     await app.init();
   });
 
@@ -45,7 +53,7 @@ describe('FlightsController (e2e)', () => {
         .expect(404);
 
       expect(response.body).toStrictEqual({
-        data: [],
+        data: null,
         statusCode: 404,
         message: 'No flights found',
         success: false,
