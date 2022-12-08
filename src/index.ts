@@ -23,6 +23,7 @@ export const api = functions
   .runWith({
     timeoutSeconds: 60,
     memory: '128MB',
+    minInstances: 1,
   })
   .region('europe-west3')
   .https.onRequest(server);
