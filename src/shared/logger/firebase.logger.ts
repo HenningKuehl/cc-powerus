@@ -1,8 +1,8 @@
-import { Injectable, LoggerService, Scope } from "@nestjs/common";
-import * as logger from "firebase-functions/logger";
+import { Injectable, LoggerService, Scope } from '@nestjs/common';
+import * as logger from 'firebase-functions/logger';
 
 @Injectable({
-  scope: Scope.TRANSIENT
+  scope: Scope.TRANSIENT,
 })
 export class FirebaseLogger implements LoggerService {
   log(message: any, ...optionalParams): any {

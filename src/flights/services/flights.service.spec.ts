@@ -4,7 +4,11 @@ import { FlightsRepository } from '../repositories/flights.repository';
 import { IFlight } from '../interfaces/flight.interface';
 import { HttpModule } from '@nestjs/axios';
 import { CacheModule } from '@nestjs/common';
-import { MOCK_FLIGHTS_SOURCE1, MOCK_FLIGHTS_SOURCE2, MOCK_FLIGHTS_UNIQUE } from "../../../test/mocks/flights.mock";
+import {
+  MOCK_FLIGHTS_SOURCE1,
+  MOCK_FLIGHTS_SOURCE2,
+  MOCK_FLIGHTS_UNIQUE,
+} from '../../../test/mocks/flights.mock';
 
 describe('FlightsService', () => {
   let service: FlightsService;

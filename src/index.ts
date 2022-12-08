@@ -3,27 +3,28 @@ import * as functions from 'firebase-functions';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
-import { FirebaseLogger } from "./shared/logger/firebase.logger";
+import { FirebaseLogger } from './shared/logger/firebase.logger';
 
 const server = express();
+const firebaseLogger = new FirebaseLogger();
 
-const createNestServer = async (expressInstance) => {
+const createNestServer = async (expressInstance, logger) => {
   const app = await NestFactory.create(
     AppModule,
     new ExpressAdapter(expressInstance),
     {
-      bufferLogs: true
-    }
+      bufferLogs: true,
+    },
   );
 
-  app.useLogger(new FirebaseLogger());
+  app.useLogger(logger);
 
   return app.init();
 };
 
-createNestServer(server)
-  .then((v) => console.log('Nest ready'))
-  .catch((err) => console.error('Nest broken', err));
+createNestServer(server, firebaseLogger)
+  .then(() => firebaseLogger.log('Nest ready'))
+  .catch((err) => firebaseLogger.error('Nest broken', err));
 
 export const api = functions
   .runWith({

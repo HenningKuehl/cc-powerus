@@ -3,7 +3,7 @@ import { FlightsController } from './flights.controller';
 import { FlightsService } from '../services/flights.service';
 import { FlightsRepository } from '../repositories/flights.repository';
 import { HttpModule } from '@nestjs/axios';
-import { CacheModule, NotFoundException } from "@nestjs/common";
+import { CacheModule, NotFoundException } from '@nestjs/common';
 import { Flight } from '../models/flight';
 
 describe('FlightsController', () => {
@@ -26,7 +26,6 @@ describe('FlightsController', () => {
   });
 
   describe('GET - /flights', () => {
-
     it('should return 404, if there are not flights found', async () => {
       expect.assertions(1);
 

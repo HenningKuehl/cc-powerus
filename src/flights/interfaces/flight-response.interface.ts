@@ -1,5 +1,5 @@
 import { IFlight } from './flight.interface';
 
-export interface FlightResponse {
+export interface IFlightResponse {
   flights: IFlight[];
 }

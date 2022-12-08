@@ -5,7 +5,7 @@ import { IFlight } from '../interfaces/flight.interface';
 import { FirebaseLogger } from '../../shared/logger/firebase.logger';
 
 /**
- * TODO: write documentation
+ * The flights controller handles all routes regarding flights.
  */
 @Controller('flights')
 export class FlightsController {
@@ -14,8 +14,11 @@ export class FlightsController {
     private readonly logger: FirebaseLogger,
   ) {}
 
+  /**
+   * Route to get all flights.
+   */
   @Get()
-  async getAll(): Promise<ApiResponse<IFlight[] | null>> {
+  async getAll(): Promise<ApiResponse<IFlight[]>> {
     const flights = await this.flightsService.getAllFlights();
 
     if (flights.length) {

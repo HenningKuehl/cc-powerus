@@ -4,10 +4,16 @@ import { Flight } from '../models/flight';
 
 const SOURCE_IDS = ['source1', 'source2'];
 
+/**
+ * The flights service handles all business logic which is related to flights.
+ */
 @Injectable()
 export class FlightsService {
   constructor(private readonly flightsRepo: FlightsRepository) {}
 
+  /**
+   * Returns a list of unique flights from all external sources.
+   */
   async getAllFlights(): Promise<Flight[]> {
     // TODO: think about using forkJoin instead of promise.all
     // fetch all flight sources
