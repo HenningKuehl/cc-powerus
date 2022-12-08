@@ -5,6 +5,7 @@ import { FlightsRepository } from '../repositories/flights.repository';
 import { HttpModule } from '@nestjs/axios';
 import { CacheModule, NotFoundException } from '@nestjs/common';
 import { Flight } from '../models/flight';
+import { LoggerModule } from "../../shared/logger/logger.module";
 
 describe('FlightsController', () => {
   let controller: FlightsController;
@@ -12,7 +13,7 @@ describe('FlightsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule, CacheModule.register()],
+      imports: [HttpModule, CacheModule.register(), LoggerModule],
       controllers: [FlightsController],
       providers: [FlightsService, FlightsRepository],
     }).compile();

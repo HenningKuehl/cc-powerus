@@ -9,6 +9,7 @@ import {
   MOCK_FLIGHTS_SOURCE2,
   MOCK_FLIGHTS_UNIQUE,
 } from '../../../test/mocks/flights.mock';
+import { LoggerModule } from "../../shared/logger/logger.module";
 
 describe('FlightsService', () => {
   let service: FlightsService;
@@ -16,7 +17,7 @@ describe('FlightsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule, CacheModule.register()],
+      imports: [HttpModule, CacheModule.register(), LoggerModule],
       providers: [FlightsService, FlightsRepository],
     }).compile();
 
