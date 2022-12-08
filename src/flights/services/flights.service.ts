@@ -15,7 +15,6 @@ export class FlightsService {
    * Returns a list of unique flights from all external sources.
    */
   async getAllFlights(): Promise<Flight[]> {
-    // TODO: think about using forkJoin instead of promise.all
     // fetch all flight sources
     const sources = await Promise.all(
       SOURCE_IDS.map((id) => this.flightsRepo.getFlightsBySource(id)),
